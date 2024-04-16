@@ -2,41 +2,19 @@ import unittest
 import RPi.GPIO as GPIO
 import time
 
-class MyTestCase(unittest.TestCase):
-    def test_something(self):
-        GPIO.setmode(GPIO.BCM)
+class UltrasoundTest(unittest.TestCase):
 
-        TRIG = 23
-        ECHO = 21
+    def pin_unit_test(): # check s'il est bien coonecté sur le bon pin
 
-        print("Distance Measurement In Progress")
+    def type_unit_test(): #check si le type renvoyé est bien un float
 
-        GPIO.setup(TRIG, GPIO.OUT)
-        GPIO.setup(ECHO, GPIO.IN)
+    def distance_unit_test(): # ckeck si la distance renvoyé est bien comprise entre 0 et 400cm
 
-        GPIO.output(TRIG, False)
-        print("Waiting For Sensor To Settle")
-        time.sleep(2)
+    def stop_unit_test(): # arreter le moteur si la distence renvoyé est inférieurs à 2cm
 
-        GPIO.output(TRIG, True)
-        time.sleep(0.00001)
-        GPIO.output(TRIG, False)
+    def tourner_unit_test(): # tourner et vérifier qu'il tourne s'il y moins de 10cm sur un capteur
 
-        while GPIO.input(ECHO) == 0:
-            pulse_start = time.time()
 
-        while GPIO.input(ECHO) == 1:
-            pulse_end = time.time()
-
-        pulse_duration = pulse_end - pulse_start
-
-        distance = pulse_duration * 17150
-
-        distance = round(distance, 2)
-
-        print("Distance: ", distance, "cm")
-
-        GPIO.cleanup()
 
 
 if __name__ == '__main__':
