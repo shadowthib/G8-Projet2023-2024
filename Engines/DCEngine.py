@@ -2,7 +2,8 @@ from Engine import Engine
 import time
 
 class DCEngine(Engine):
-    def __init__(self, time):
+    def __init__(self, time, speed, pin):
+        super().__init__(speed, pin)
         self.time = time
 
 def setSpeed(self, speed):
