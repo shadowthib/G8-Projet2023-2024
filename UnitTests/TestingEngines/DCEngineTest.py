@@ -85,23 +85,22 @@ def stop():
 		GPIO.output(pin, GPIO.LOW)
 
 def test_forward_movement():
-    print("Testing forward movement...")
-    GPIO.output(motor1_A, GPIO.HIGH)
-    GPIO.output(motor1_B, GPIO.LOW)
+	print("Testing forward movement...")
+	GPIO.output(motor1_A, GPIO.HIGH)
+	GPIO.output(motor1_B, GPIO.LOW)
 
-    GPIO.output(motor2_A, GPIO.HIGH)
-    GPIO.output(motor2_B, GPIO.LOW)
-    time.sleep(2)
-
+	GPIO.output(motor2_A, GPIO.HIGH)
+	GPIO.output(motor2_B, GPIO.LOW)
+	time.sleep(2)
 def test_reverse_movement():
-    print("Testing reverse movement...")
-    GPIO.output(motor1_A, GPIO.LOW)
-    GPIO.output(motor1_B, GPIO.HIGH)
+	print("Testing reverse movement...")
+	GPIO.output(motor1_A, GPIO.LOW)
+	GPIO.output(motor1_B, GPIO.HIGH)
 
-    GPIO.output(motor2_A, GPIO.HIGH)
-    GPIO.output(motor2_B, GPIO.LOW)
+	GPIO.output(motor2_A, GPIO.HIGH)
+	GPIO.output(motor2_B, GPIO.LOW)
 
-    time.sleep(2)
+	time.sleep(2)
 
 # Run tests
 test_forward_movement()
