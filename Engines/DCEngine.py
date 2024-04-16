@@ -1,5 +1,6 @@
 from Engine import Engine
 import time
+from main import Main
 
 class DCEngine(Engine):
     def __init__(self, time, speed, pin):
