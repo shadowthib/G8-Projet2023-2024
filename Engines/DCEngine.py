@@ -1,15 +1,55 @@
-from Engine import Engine
+import RPi.GPIO as GPIO
 import time
-from main import Main
+import PCA9685 as PCA
 
-class DCEngine(Engine):
-    def __init__(self, time, speed, pin):
-        super().__init__(speed, pin)
-        self.time = time
+class DCEngine():
+    def __init__(self):
+        self.motor1_A = 17
+        self.motor1_B = 18
+        self.motor2_A = 27
+        self.motor2_B = 22
 
-def setSpeed(self, speed):
-    self.speed = speed
+        self.en_1 = 4
+        self.en_2 = 5
 
-def setAngle(self):
-    while self.running == True:
-        self.angle += 1
+        self.pins = [self.motor1_A, self.motor1_B, self.motor2_A, self.motor2_B]
+
+        self.pwm = PCA.PWM()
+        self.pwm.frequency = 60
+
+        GPIO.setmode(GPIO.BCM)
+        for pin in self.pins:
+            GPIO.setup(pin, GPIO.OUT)
+
+    def motor_state(self, motorA, motorB, pwm_value):
+        GPIO.output(motorA , GPIO.HIGH if pwm_value > 0 else GPIO.LOW)
+        GPIO.output(motorB , GPIO.HIGH if pwm_value < 0 else GPIO.LOW)
+        self.pwm.write(self.en_1 if motorA == self.motor1_A else self.en_1, 0, abs(pwm_value))
+
+    def forward(self):
+        self.motor_state(self.motor1_A, self.motor1_B, 4095)
+        self.motor_state(self.motor2_A, self.motor2_B, 4095)
+
+    def backward(self):
+        self.motor_state(self.motor1_A, self.motor1_B, -4095)
+        self.motor_state(self.motor2_A, self.motor2_B, -4095)
+
+    def stop(self):
+        self.motor_state(self.motor1_A, self.motor1_B, 0)
+        self.motor_state(self.motor2_A, self.motor2_B, 0)
+
+
+    def test(self):
+
+        motor= DCEngine()
+
+        motor.forward()
+        time.sleep(2)
+
+        motor.backward()
+        time.sleep(2)
+
+        motor.stop()
+
+    test()
+
