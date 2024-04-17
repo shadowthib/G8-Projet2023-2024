@@ -2,7 +2,8 @@ import RPi.GPIO as GPIO
 import time
 import PCA9685 as PCA
 
-class DCEngine():
+
+class DCEngine:
     def __init__(self):
         self.motor1_A = 17
         self.motor1_B = 18
@@ -39,17 +40,20 @@ class DCEngine():
         self.motor_state(self.motor2_A, self.motor2_B, 0)
 
 
-    def test(self):
 
-        motor= DCEngine()
 
-        motor.forward()
-        time.sleep(2)
 
-        motor.backward()
-        time.sleep(2)
+def test():
 
-        motor.stop()
+    motor= DCEngine()
 
-    test()
+    motor.forward()
+    time.sleep(2)
+
+    motor.backward()
+    time.sleep(2)
+
+    motor.stop()
+
+test()
 
