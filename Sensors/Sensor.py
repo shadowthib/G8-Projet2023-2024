@@ -1,4 +1,6 @@
-class Sensor():
+from abc import *
+
+class Sensor(metaclass=ABCMeta):
     def __init__(self):
         self.engine_list = []
         self.active = False
