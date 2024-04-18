@@ -2,11 +2,11 @@ import unittest
 import RPi.GPIO as GPIO
 import time
 
-class MyTestCase(unittest.TestCase):
+class UltraSoundTest(unittest.TestCase):
     def test_something(self):
         GPIO.setmode(GPIO.BCM)
 
-        TRIG = 23
+        TRIG = 23 
         ECHO = 21
 
         print("Distance Measurement In Progress")
