@@ -1,10 +1,10 @@
 import unittest
+import RPi.GPIO as GPIO
+from time import sleep
 
 
-class MyTestCase(unittest.TestCase):
-    def test_something(self):
-        self.assertEqual(True, False)  # add assertion here
-
+class TestServo(unittest.TestCase):
+    GPIO.
 
 if __name__ == '__main__':
     unittest.main()

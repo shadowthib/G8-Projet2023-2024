@@ -38,6 +38,5 @@ class MyTestCase(unittest.TestCase):
 
         GPIO.cleanup()
 
-
 if __name__ == '__main__':
     unittest.main()
