@@ -109,6 +109,16 @@ def test_avance():
         speed_select -= 500
     motor.stop()
 
+def avancerReculer30cm():
+    motor = DCEngine()
 
-test_condition()
+    motor.forward(round(4095*0.67))
+    time.sleep(1)
+
+    motor.backward(round(4095*0.65))
+    time.sleep(1)
+    motor.stop()
+
+avancerReculer30cm()
+#test_condition()
 #test_avance()
