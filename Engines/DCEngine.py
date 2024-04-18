@@ -15,6 +15,8 @@ class DCEngine:
 
         self.pins = [self.motor1_A, self.motor1_B, self.motor2_A, self.motor2_B]
 
+
+
         self.pwm = PCA.PWM()
         self.pwm.frequency = 60
 
@@ -26,7 +28,6 @@ class DCEngine:
         print('Motor A: {}, Motor B: {}'.format(motorA, motorB))
         GPIO.output(motorA , GPIO.HIGH if pwm_value > 0 else GPIO.LOW)
         GPIO.output(motorB , GPIO.HIGH if pwm_value < 0 else GPIO.LOW)
-        #self.pwm.write(self.en_1 if motorA == self.motor1_A else self.en_1, 0, abs(pwm_value))
         if motorA == self.motor1_A:
             self.pwm.write(self.en_1, 0, abs(pwm_value))
         else:
