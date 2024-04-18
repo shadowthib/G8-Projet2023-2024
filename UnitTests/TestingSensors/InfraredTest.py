@@ -6,5 +6,11 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(True, False)
 
 
+    def test_detecte_ligne(self):
+        self.assertTrue()
+        self.assertFalse
+
+        
+
 if __name__ == '__main__':
     unittest.main()
