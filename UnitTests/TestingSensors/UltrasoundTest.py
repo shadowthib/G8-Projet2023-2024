@@ -2,42 +2,28 @@ import unittest
 import RPi.GPIO as GPIO
 import time
 
-class MyTestCase(unittest.TestCase):
-    def test_something(self):
-        GPIO.setmode(GPIO.BCM)
+class UltrasoundTest(unittest.TestCase):
 
-        TRIG = 23
-        ECHO = 21
-
-        print("Distance Measurement In Progress")
-
-        GPIO.setup(TRIG, GPIO.OUT)
-        GPIO.setup(ECHO, GPIO.IN)
-
-        GPIO.output(TRIG, False)
-        print("Waiting For Sensor To Settle")
-        time.sleep(2)
-
-        GPIO.output(TRIG, True)
+    def test_unit_sound (self):
+        self.assertEqual(TRIG,1)
         time.sleep(0.00001)
-        GPIO.output(TRIG, False)
+        self.assertEqual(ECHO,1)
+        time.sleep(0.0011)
+        self.assertEqual(TRIG,0)
+        self.assertEqual(ECHO,0)
 
-        while GPIO.input(ECHO) == 0:
-            pulse_start = time.time()
+    def test_unit_distance(self):
+        self.assertTrue(0<=distance<=400)
 
-        while GPIO.input(ECHO) == 1:
-            pulse_end = time.time()
+    def test_unit_type(self):
+        self.assertIsInstance(distance,float)
 
-        pulse_duration = pulse_end - pulse_start
+    def test_unit_stop(self):
+        self.assertTrue(distance>5)
 
-        distance = pulse_duration * 17150
+    def test_unit_start(self):
+        self.assertTrue(distance<5)
 
-        distance = round(distance, 2)
-
-        print("Distance: ", distance, "cm")
-
-        GPIO.cleanup()
-
-
+    
 if __name__ == '__main__':
     unittest.main()
