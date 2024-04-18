@@ -11,6 +11,9 @@ class UltraSound:
             print("Distance (",self.position,") :")
             print(self.sensor.distance * 100)
             time.sleep(1)
+            return self.sensor.distance * 100
+
+
 
 
 

@@ -35,5 +35,37 @@ class Servo():
                 self.stop()
 
 
+    def mur1m(self, distance):
+        angle = 20
+        if distance > 15 and distance < 25:
+            self.set_angle(20)
 
+        elif distance > 25:
+            if distance > 50:
+                angle += 20
+                self.set_angle(angle)
+            else:
+                angle -= 20
+                self.set_angle(angle)
+        elif distance < 15:
+            angle += 20
+            self.set_angle(angle)
 
+    def bloquerRoueToutDroit(self):
+        self.set_angle(20)
+
+    def tour(self, distance):
+        angle = 20
+        if distance > 15 and distance < 25:
+            self.set_angle(20)
+
+        elif distance > 25:
+            if distance > 40:
+                angle -= 30
+                self.set_angle(angle)
+            else:
+                angle -= 20
+                self.set_angle(angle)
+        elif distance < 15:
+            angle += 20
+            self.set_angle(angle)
