@@ -74,6 +74,17 @@ while 1:
             print("Recommencez votre choix")
         break
     elif choix == "6":
+        angle = 20
+        while angle < 65:
+            servo.set_angle(angle)
+            time.sleep(0.1)
+            angle += 1
+
+        # time.sleep(2)
+        servo.set_angle(20)
+        servo.stop()
+        break
+        # DC.stop()
     else:
         print('Choix non valide, réessayer.')
 
