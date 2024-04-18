@@ -16,10 +16,8 @@ class Servo():
     def reset(self):
         self.set_angle(45)  # Set servo to 0 degree position
 
-
     def stop(self):
         self.pwm.write(0, 0, 0)
-
 
 def test():
 
@@ -34,10 +32,3 @@ def test():
             time.sleep(2)
             servo.set_angle(0)
             servo.stop()
-
-
-test()
-
-
-
-

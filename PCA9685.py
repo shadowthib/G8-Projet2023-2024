@@ -15,6 +15,7 @@ import smbus
 import time
 import math
 
+
 class PWM(object):
     """A PWM control class for PCA9685."""
     _MODE1              = 0x00
@@ -98,7 +99,7 @@ class PWM(object):
                         print ("Error. Pi revision didn't recognize, module number: %s" % line[11:-1])
                         print ('Exiting...')
                         quit()
-        except (Exception, e):
+        except Exception as e:
             f.close()
             print (e)
             print ('Exiting...')
@@ -106,7 +107,7 @@ class PWM(object):
         finally:
             f.close()
 
-    def __init__(self, bus_number=None, address=0x40):
+    def __init__(self, bus_number=1, address=0x40):
         '''Init the class with bus_number and address'''
         if self._DEBUG:
             print (self._DEBUG_INFO, "Debug on")
@@ -135,7 +136,7 @@ class PWM(object):
             print (self._DEBUG_INFO, 'Writing value %2X to %2X' % (value, reg))
         try:
             self.bus.write_byte_data(self.address, reg, value)
-        except (Exception, i):
+        except Exception as i:
             print (i)
             self._check_i2c()
 
@@ -146,26 +147,26 @@ class PWM(object):
         try:
             results = self.bus.read_byte_data(self.address, reg)
             return results
-        except (Exception, i):
+        except Exception as i:
             print (i)
             self._check_i2c()
 
     def _check_i2c(self):
-        import commands
+        import subprocess
         bus_number = self._get_bus_number()
         print ("\nYour Pi Rivision is: %s" % self._get_pi_revision())
         print ("I2C bus number is: %s" % bus_number)
         print ("Checking I2C device:")
         cmd = "ls /dev/i2c-%d" % bus_number
-        output = commands.getoutput(cmd)
-        print ('Commands "%s" output:' % cmd)
+        output = subprocess.getoutput(cmd)
+        print ('subprocess "%s" output:' % cmd)
         print (output)
         if '/dev/i2c-%d' % bus_number in output.split(' '):
             print ("I2C device setup OK")
         else:
             print ("Seems like I2C has not been set. Use 'sudo raspi-config' to set I2C")
         cmd = "i2cdetect -y %s" % self.bus_number
-        output = commands.getoutput(cmd)
+        output = subprocess.getoutput(cmd)
         print ("Your PCA9685 address is set to 0x%02X" % self.address)
         print ("i2cdetect output:")
         print (output)
@@ -193,7 +194,7 @@ class PWM(object):
 
     @property
     def frequency(self):
-        return _frequency
+        return self._frequency
 
     @frequency.setter
     def frequency(self, freq):

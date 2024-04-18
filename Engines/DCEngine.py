@@ -4,6 +4,7 @@ import RPi.GPIO as GPIO
 import time
 import PCA9685 as PCA
 import pick
+import math
 
 
 class DCEngine:
@@ -115,10 +116,11 @@ def avancerReculer30cm():
     motor.forward(round(4095*0.67))
     time.sleep(1)
 
-    motor.backward(round(4095*0.65))
+    motor.backward(round(4095*0.67))
     time.sleep(1)
     motor.stop()
 
-avancerReculer30cm()
+#avancerReculer30cm()
+
 #test_condition()
 #test_avance()
