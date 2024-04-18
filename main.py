@@ -51,12 +51,16 @@ UltraSound_right = UltraSound.UltraSound(19,26,"Droite")
 while 1:
     choix = menu.menu()
     if choix == "1":
+        servo.bloquerRoueToutDroit()
         motor.avancerReculer30cm()
+        servo.stop()
     elif choix == "2":
         motor.test_condition()
     elif choix == "3":
+        servo.bloquerRoueToutDroit()
         motor.accelForward()
         motor.decelForward()
+        servo.stop()
     elif choix == "4":
         servo.test()
     elif choix == "5":
@@ -88,6 +92,20 @@ while 1:
         servo.stop()
         break
         # DC.stop()
+
+    elif choix == "7":
+        i = 0
+        motor.avancer1M()
+        while 1:
+            if i == 0:
+                motor.avancer1M()
+            else :
+                pass
+            i += 1
+            servo.mur1m(UltraSound_left.get_distance())
+
+    elif choix == "8" :
+        break
     else:
         print('Choix non valide, réessayer.')
 

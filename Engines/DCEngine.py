@@ -133,3 +133,14 @@ class DCEngine:
             speed_select -= 1000
         self.stop()
 
+
+    def avancer1M(self):
+        self.forward(round(4095 * 0.70))
+        time.sleep(3)
+        self.stop()
+
+    def effectuerTour(self):
+        self.forward(round(2000))
+        time.sleep(60)
+        self.stop()
+
