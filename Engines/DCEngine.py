@@ -2,7 +2,7 @@ import random
 
 import RPi.GPIO as GPIO
 import time
-import PCA9685 as PCA
+import Engines.PCA9685 as PCA
 import pick
 
 
@@ -55,70 +55,81 @@ class DCEngine:
         self.motor_state(self.motor2_A, self.motor2_B, 0)
 
 
-def test_condition():
-
-    motor = DCEngine()
-
-    while True:
-        speed = int(input("Sélectionnez la vitesse : [1] Lent [2] Moyen [3] Rapide [4] Très rapide \n"))
-        if speed >= 1 and speed <= 4:
-            match speed :
-                case 1 :
-                    speed_select = 512
-                    break
-                case 2 :
-                    speed_select = 1028
-                    break
-                case 3 :
-                    speed_select = 2512
-                    break
-                case 4:
-                    speed_select = 4095
-                    break
-        else :
-            print("Inscrivez un nombre entre 1 et 4")
+    def test_condition(self):
 
 
-    while True:
-        obstacle = random.randrange(0, 2)
-        if obstacle == 0:
-            motor.forward(speed_select)
+        while True:
+            speed = int(input("Sélectionnez la vitesse : [1] Lent [2] Moyen [3] Rapide [4] Très rapide \n"))
+            if speed >= 1 and speed <= 4:
+                match speed :
+                    case 1 :
+                        speed_select = 512
+                        break
+                    case 2 :
+                        speed_select = 1028
+                        break
+                    case 3 :
+                        speed_select = 2512
+                        break
+                    case 4:
+                        speed_select = 4095
+                        break
+            else :
+                print("Inscrivez un nombre entre 1 et 4")
+
+
+        while True:
+            obstacle = random.randrange(0, 2)
+            if obstacle == 0:
+                self.forward(speed_select)
+                time.sleep(1)
+            if obstacle == 1:
+                print("Obstacle détecté !")
+                self.stop()
+                direction = random.choice(['R', 'L'])
+                self.forward(speed_select, direction)
+                time.sleep(1)
+                self.stop()
+                break
+            time.sleep(0.1)
+
+        '''motor.backward(speed_select)
+    
+        time.sleep(2)'''
+
+
+    def test_avance(self):
+        speed_select = 4095
+
+        while speed_select > 0:
+            self.forward(speed_select)
             time.sleep(1)
-        if obstacle == 1:
-            print("Obstacle détecté !")
-            motor.stop()
-            direction = random.choice(['R', 'L'])
-            motor.forward(speed_select, direction)
-            time.sleep(1)
-            motor.stop()
-            break
-        time.sleep(0.1)
+            speed_select -= 500
+        self.stop()
 
-    '''motor.backward(speed_select)
+    def avancerReculer30cm(self):
 
-    time.sleep(2)'''
-
-
-def test_avance():
-    motor = DCEngine()
-    speed_select = 4095
-
-    while speed_select > 0:
-        motor.forward(speed_select)
+        self.forward(round(4095*0.67))
         time.sleep(1)
-        speed_select -= 500
-    motor.stop()
 
-def avancerReculer30cm():
-    motor = DCEngine()
+        self.backward(round(4095*0.65))
+        time.sleep(1)
+        self.stop()
 
-    motor.forward(round(4095*0.67))
-    time.sleep(1)
 
-    motor.backward(round(4095*0.65))
-    time.sleep(1)
-    motor.stop()
+    def accelForward(self):
+        speed_select = 0
+        while speed_select < 4095:
+            self.forward(speed_select)
+            time.sleep(1)
+            speed_select += 1000
+        self.stop()
 
-avancerReculer30cm()
-#test_condition()
-#test_avance()
+    def decelForward(self):
+        speed_select = 4095
+        while speed_select > 0:
+            self.forward(speed_select)
+            time.sleep(1)
+            speed_select -= 1000
+        self.stop()
+

@@ -21,22 +21,18 @@ class Servo():
         self.pwm.write(0, 0, 0)
 
 
-def test():
+    def test(self):
 
-    while 1:
-        servo = Servo()
-        angle = int(input("Enter an angle:"))
+        while 1:
+            angle = int(input("Enter an angle:"))
 
-        if angle == 69:
-            break
-        else:
-            servo.set_angle(angle)
-            time.sleep(2)
-            servo.set_angle(0)
-            servo.stop()
-
-
-test()
+            if angle == 69:
+                break
+            else:
+                self.set_angle(angle)
+                time.sleep(2)
+                self.set_angle(0)
+                self.stop()
 
 
 
