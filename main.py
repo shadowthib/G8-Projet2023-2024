@@ -18,6 +18,7 @@ class Main():
         print("3: accelerer/decélération")
         print("4: tourner servo")
         print("5: récup donner ultrason")
+        print("6: faire un demi tour")
 
         return input("Entrez votre choix : ")
 
@@ -74,14 +75,16 @@ while 1:
             print("Recommencez votre choix")
         break
     elif choix == "6":
-        angle = 20
-        while angle < 65:
-            servo.set_angle(angle)
-            time.sleep(0.1)
-            angle += 1
-
-        # time.sleep(2)
+        motor.forward(1000,"R")
+        servo.set_angle(65)
+        time.sleep(3)
+        motor.stop()
+        motor.forward(1000,"L")
+        servo.set_angle(-25)
+        time.sleep(3)
+        motor.stop()
         servo.set_angle(20)
+        time.sleep(3)
         servo.stop()
         break
         # DC.stop()
