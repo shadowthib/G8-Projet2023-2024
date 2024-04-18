@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Black">
+    <option name="sdkName" value="Python 3.12 (test)" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="Remote Python 3.11.2 (sftp://dietpi@10.10.222.13:22/home/dietpi/.virtualenvs/G8-Projet2023-2024/bin/python)" project-jdk-type="Python SDK" />
+</project>
