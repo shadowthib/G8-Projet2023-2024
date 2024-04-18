@@ -20,6 +20,10 @@ class UltrasoundTest(unittest.TestCase):
 
     def test_unit_stop(self):
         self.assertTrue(distance>5)
+
+    def test_unit_start(self):
+        self.assertTrue(distance<5)
+
     
 if __name__ == '__main__':
     unittest.main()
