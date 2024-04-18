@@ -2,15 +2,17 @@ from gpiozero import DistanceSensor
 import lgpio
 import time
 class UltraSound:
-    def __init__(self, echo, trigger):
+    def __init__(self, echo, trigger, position):
         self.sensor = DistanceSensor(echo=echo, trigger=trigger)
+        self.position = position
 
     def get_distance(self):
-        return self.sensor.distance
+        while True:
+            print("Distance (",self.position,") :")
+            print(self.sensor.distance * 100)
+            time.sleep(1)
 
-UltraSound_front = UltraSound(5, 6)
-UltraSound_left = UltraSound(9, 11)
-UltraSound_right = UltraSound(19,26)
+
 
 '''while True:
     print(UltraSound_front.get_distance())
