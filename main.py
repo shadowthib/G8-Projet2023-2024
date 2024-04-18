@@ -1,10 +1,9 @@
 import threading
 import time
-import Engines.DCEngine as DCEngine
-import Sensors.Infrared as InfraRed
-import Engines.ServoEngine as Servo
+import PCA9685 as PCA
 import Sensors.Ultrasound as UltraSound
-import Sensors.RGB as RGB
+import Engines.DCEngine as DCEngine
+import Engines.ServoEngine as ServoEngine
 
 import abc
 
@@ -22,13 +21,34 @@ class Main():
 
         return input("Entrez votre choix : ")
 
+    def demiTour(self):
+            DC = DCEngine.DCEngine()
+            SRV = ServoEngine.Servo()
+
+            #DC.forward(1028)
+            #time.sleep(5)
+
+            angle = 20
+            while angle < 65:
+                SRV.set_angle(angle)
+                time.sleep(0.1)
+                angle += 1
+
+            #time.sleep(2)
+            SRV.set_angle(20)
+            SRV.stop()
+            #DC.stop()
+
+menu = Main()
 
 motor = DCEngine.DCEngine()
-servo = Servo.Servo()
-ultra = UltraSound.UltraSound(5, 6)
+servo = ServoEngine.Servo()
+UltraSound_front = UltraSound.UltraSound(5, 6, "Devant")
+UltraSound_left = UltraSound.UltraSound(9, 11,"Gauche")
+UltraSound_right = UltraSound.UltraSound(19,26,"Droite")
 
 while 1:
-    choix = Main()
+    choix = menu.menu()
     if choix == "1":
         motor.avancerReculer30cm()
     elif choix == "2":
@@ -39,12 +59,23 @@ while 1:
     elif choix == "4":
         servo.test()
     elif choix == "5":
-        ultra.get_distance()
-
+        inp = input("Quel capteur voulez voir : [1] Devant [2] Gauche [3] Droite [4] Tous \n")
+        if inp == "1":
+            UltraSound_front.get_distance()
+        elif inp == "2":
+            UltraSound_left.get_distance()
+        elif inp == "3":
+            UltraSound_right.get_distance()
+        elif inp == "4":
+            UltraSound_front.get_distance()
+            UltraSound_left.get_distance()
+            UltraSound_right.get_distance()
+        else :
+            print("Recommencez votre choix")
         break
+    elif choix == "6":
     else:
         print('Choix non valide, réessayer.')
 
 
-menu = Main()
-menu.menu()
+
