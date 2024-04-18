@@ -2,7 +2,7 @@ import unittest
 from Engines import DCEngine
 
 
-class MyTestCase(unittest.TestCase):
+class DCEngineTest(unittest.TestCase):
     def test_something(self):
         self.assertEqual(True, False)  # add assertion here
 
@@ -10,7 +10,7 @@ class MyTestCase(unittest.TestCase):
         self.assertIsNotNone(self.engine)
 
     def unit_test_connection(self):
-        self.assertTrue(self.engine.active)
+        self.assertTrue(self.pins.active)
 
     
     def unit_test_vitesse_negative(self):

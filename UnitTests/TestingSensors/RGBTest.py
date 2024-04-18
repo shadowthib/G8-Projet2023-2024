@@ -3,7 +3,7 @@ import busio
 import adafruit_tcs34725
 import time
 
-class TestTCS34725(unittest.TestCase):
+class RGBTest(unittest.TestCase):
     def test_CreationTest(self):
         self.i2c = busio.I2C(1,0)
         self.sensor = adafruit_tcs34725.TCS34725(self.i2c, address=0x40)
