@@ -1,8 +1,8 @@
 import unittest
 import RPi.GPIO as GPIO
 import time
-import RPi.Servo as servo
-import Adafruit_Servo as servo
+import RPi as servo
+from unittest.mock import patch
 
 
 class MyTestCase(unittest.TestCase):
@@ -15,7 +15,7 @@ class MyTestCase(unittest.TestCase):
         #on définit une varaibla et lui donne 90
         cible_angle = 90
         #getposition permet de savoir la posivition du servo
-        position_actuelle = servo.get_position()
+        #position_actuelle = servo.get_position()
         servo.control_angle(cible_angle)
         position_finale = servo.get_position()
         self.assertEqual(position_finale, cible_angle)
@@ -38,6 +38,15 @@ class MyTestCase(unittest.TestCase):
         self.sensor.get_angle=  lambda: -50
         self.assertFalse(self.sensor.is_in_range(0, 180), "le servo moteur tourne pas dans la range disponible")
 
+
+    def test_erreur_communication(self):
+        #simuler une erreur
+        with mock.patch('servo.control_angle') as mock_control_angle:
+            mock_control_angle.side_effect = OSError('Erreur de communication')
+        #vérifier qu'une exception spécifique est levée pendant l'exécution du code à l'intérieur du bloc
+        with self.assertRaises(OSError):
+            cible_angle = 90
+            servo.control_angle(cible_angle)
     
 """""
  def testgetdistance_returns_float(self):
@@ -75,7 +84,7 @@ class MyTestCase(unittest.TestCase):
 """""
 
         
-        """
+"""
         pas de if car c'est pas un test unitaire
         if cible_angle== 90:
             print("je vais tout droit")
