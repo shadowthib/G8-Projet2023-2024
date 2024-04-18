@@ -6,6 +6,7 @@ class RGB(Sensor):
         self.red = 0
         self.green = 0
         self.blue = 0
+        
 
     def set_color(self, red, green, blue):
         self.red = red
