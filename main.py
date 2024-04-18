@@ -79,11 +79,11 @@ while 1:
             print("Recommencez votre choix")
         break
     elif choix == "6":
-        motor.forward(1000,"R")
+        motor.forward(2512,"R")
         servo.set_angle(65)
         time.sleep(3)
         motor.stop()
-        motor.forward(1000,"L")
+        motor.forward(2512,"L")
         servo.set_angle(-25)
         time.sleep(3)
         motor.stop()
