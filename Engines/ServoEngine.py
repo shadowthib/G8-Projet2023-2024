@@ -3,10 +3,26 @@ import PCA9685 as PCA
 
 class Servo():
     def __init__(self, min_pulse=350, max_pulse=550):
-        self.pwm = PCA.PWM()
-        self.pwm.frequency = 60
-        self.min_pulse = min_pulse
-        self.max_pulse = max_pulse
+        self._pwm = PCA.PWM()
+        self._pwm.frequency = 60
+        self._min_pulse = min_pulse
+        self._max_pulse = max_pulse
+
+        @property
+        def pwm(self):
+            return self._pwm
+        
+        @property
+        def min_pulse(self):
+            return self._min_pulse
+        
+        @property
+        def max_pulse(self):
+            return self._max_pulse
+        
+        @property
+        def frequency(self):
+            return self._pwm.frequency
 
     def set_angle(self, angle):
         angle = max(-25, min(65, angle))

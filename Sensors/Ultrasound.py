@@ -6,10 +6,28 @@ class UltraSound:
         self.sensor = DistanceSensor(echo=echo, trigger=trigger)
         self.position = position
 
+        @property
+        def sensor(self):
+            return self.sensor
+        
+        @property
+        def position(self):
+            return self.position
+        
+        @sensor.setter
+        def sensor(self, sensor):
+            if isinstance(sensor, DistanceSensor):
+                self.sensor = sensor
+
+        @position.setter
+        def position(self, position):
+            if isinstance(position, float):
+                self.position = position
+
     def get_distance(self):
         while True:
-            print("Distance (",self.position,") :")
-            print(self.sensor.distance * 100)
+            print("Distance (",self._position,") :")
+            print(self._sensor.distance * 100)
             time.sleep(1)
 
 

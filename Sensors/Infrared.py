@@ -6,6 +6,19 @@ class InfraRed(Sensor):
         self.bus_number
         self.adress = 0x48
 
+    @property
+    def bus_number(self):
+        return self.bus_number
+    
+    @property
+    def adress(self):
+        return self.adress
+    
+    @bus_number.setter
+    def bus_number(self, bus_number):
+        if type(bus_number) is int:
+            self.bus_number = bus_number
+
     def get_bus_number(self):
         return self.bus_number
 
