@@ -14,7 +14,7 @@ class Main():
 
     def menuPrincipal(self):
         while 1:
-            choix = input("1: avancer/reculer 30cm\n2: gerer vitesse\n3: accelerer/decélération\n4: tourner servo\n5: récup donner ultraso\nEntrez votre choix : ")
+            choix = input("1: avancer/reculer 30cm\n2: gerer vitesse\n3: accelerer/decélération\n4: tourner servo\n5: récup donner ultraso\n6: demi tour\n7: longer mur\nEntrez votre choix : ")
             match choix :
                 case "1":
                     servo.bloquerRoueToutDroit()
