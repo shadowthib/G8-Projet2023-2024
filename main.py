@@ -1,10 +1,8 @@
 import threading
 import time
 import Engines.DCEngine as DCEngine
-import Sensors.Infrared as InfraRed
 import Sensors.Ultrasound as UltraSound
 import Engines.ServoEngine as ServoEngine
-import Sensors.RGB as RGB
 
 
 import abc
@@ -39,22 +37,24 @@ class Main():
                     motor.stop()
                     motor.forward(2512)
                     servo.set_angle(-25)
-                    time.sleep(4)
+                    time.sleep(3.5)
                     motor.stop()
                     servo.set_angle(20)
                     time.sleep(2)
                     servo.stop()
                     break
-                    # DC.stop()
                 case "7":
-                    i = 0
-                    while 1:
-                        if i == 0:
-                            motor.avancer1M()
-                        else:
-                            pass
-                        i += 1
-                        servo.mur1m(UltraSound_left.get_distance())
+                    while True:
+                        motor.avancer1M()
+                        UltraSound_left.get_distance()
+                        '''i = 0
+                        while 1:
+                            if i == 0:
+                                motor.avancer1M()
+                            else:
+                                pass
+                            i += 1
+                            servo.mur1m(UltraSound_left.get_distance())'''
                 case _:
                     print('Choix non valide, réessayer.')
                     self.menuPrincipal()
@@ -79,25 +79,6 @@ class Main():
                     break
                 case _:
                     print('Choix non valide, réessayer.')
-
-
-    def demiTour(self):
-            DC = DCEngine.DCEngine()
-            SRV = ServoEngine.Servo()
-
-            #DC.forward(1028)
-            #time.sleep(5)
-
-            angle = 20
-            while angle < 65:
-                SRV.set_angle(angle)
-                time.sleep(0.1)
-                angle += 1
-
-            #time.sleep(2)
-            SRV.set_angle(20)
-            SRV.stop()
-            #DC.stop()
 
 menu = Main()
 
