@@ -19,5 +19,11 @@ class InfraredTest(unittest.TestCase):
         value = self.sensor.read_value()
         self.assertGreaterEqual(value, 0, "La valeur renvoyée est inférieure à 0")
 
+    def test_detecte_ligne(self):
+        self.assertTrue()
+        self.assertFalse
+
+        
+
 if __name__ == '__main__':
     unittest.main()
