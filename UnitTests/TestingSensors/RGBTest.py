@@ -35,8 +35,8 @@ class RGBTest(unittest.TestCase):
         self.sensor = adafruit_tcs34725.TCS34725(self.i2c, address=0x40)
         if self.sensor.active:
             value = self.sensor.read_value()
-            self.assertIsInstance(value, int, "La valeur renvoyée n'est pas un entier")
-            self.assertNotIsInstance(value, int, "La valeur renvoyée est un entier")
+            self.assertIsInstance(value, int, "La valeur renvoyée est un entier")
+            self.assertNotIsInstance(value, int, "La valeur renvoyée n'est pas un entier")
 
         else:
             print("Connexion non établie")
@@ -46,8 +46,8 @@ class RGBTest(unittest.TestCase):
         self.sensor = adafruit_tcs34725.TCS34725(self.i2c, address=0x40)
         if self.sensor.active:
             value = self.sensor.read_value()
-            self.assertGreaterEqual(value, 0, "La valeur renvoyée est inférieure à 0")
-            self.assertLess(value, 0, "La valeur renvoyée est supérieure à 0")
+            self.assertGreaterEqual(value, 0, "La valeur renvoyée est supérieure à 0")
+            self.assertLess(value, 0, "La valeur renvoyée est inférieure à 0")
 
         else:
             print("Connexion non établie")
