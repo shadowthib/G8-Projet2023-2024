@@ -95,15 +95,13 @@ while 1:
 
     elif choix == "7":
         i = 0
-        motor.avancer1M()
         while 1:
             if i == 0:
                 motor.avancer1M()
-            else :
+            else:
                 pass
             i += 1
             servo.mur1m(UltraSound_left.get_distance())
-
     elif choix == "8" :
         break
     else:
