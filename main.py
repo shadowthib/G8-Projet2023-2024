@@ -3,6 +3,7 @@ import time
 import Engines.DCEngine as DCEngine
 import Sensors.Infrared as InfraRed
 import Sensors.Ultrasound as UltraSound
+import Engines.ServoEngine as ServoEngine
 import Sensors.RGB as RGB
 
 
@@ -38,10 +39,10 @@ class Main():
                     motor.stop()
                     motor.forward(2512)
                     servo.set_angle(-25)
-                    time.sleep(3)
+                    time.sleep(4)
                     motor.stop()
                     servo.set_angle(20)
-                    time.sleep(3)
+                    time.sleep(2)
                     servo.stop()
                     break
                     # DC.stop()
