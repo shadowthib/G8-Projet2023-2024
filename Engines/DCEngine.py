@@ -34,15 +34,10 @@ class DCEngine:
         else:
             self.pwm.write(self.en_2, 0, abs(pwm_value))
 
-    def forward(self, speed_select, direction=None):
+    def forward(self, speed_select):
         print('Forward')
-        if direction == "R":
-            self.motor_state(self.motor1_A, self.motor1_B, speed_select)
-        elif direction == "L":
-            self.motor_state(self.motor2_A, self.motor2_B, speed_select)
-        else :
-            self.motor_state(self.motor1_A, self.motor1_B, speed_select)
-            self.motor_state(self.motor2_A, self.motor2_B, speed_select)
+        self.motor_state(self.motor1_A, self.motor1_B, speed_select)
+        self.motor_state(self.motor2_A, self.motor2_B, speed_select)
 
     def backward(self, speed_select):
         print('Backward')
@@ -86,8 +81,7 @@ class DCEngine:
             if obstacle == 1:
                 print("Obstacle détecté !")
                 self.stop()
-                direction = random.choice(['R', 'L'])
-                self.forward(speed_select, direction)
+                self.forward(speed_select)
                 time.sleep(1)
                 self.stop()
                 break
@@ -110,6 +104,9 @@ class DCEngine:
     def avancerReculer30cm(self):
 
         self.forward(round(4095*0.67))
+        time.sleep(1)
+
+        self.stop()
         time.sleep(1)
 
         self.backward(round(4095*0.65))
@@ -143,4 +140,8 @@ class DCEngine:
         self.forward(round(2000))
         time.sleep(60)
         self.stop()
+
+    def infinityForward(self):
+        while True :
+            self.avancer1M()
 

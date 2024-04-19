@@ -29,10 +29,8 @@ class Servo():
     def reset(self):
         self.set_angle(45)
 
-
     def stop(self):
         self.pwm.write(0, 0, 0)
-
 
     def test(self):
 
@@ -47,10 +45,10 @@ class Servo():
                 self.set_angle(0)
                 self.stop()
 
-
     def mur1m(self, distance):
         angle = 20
-        if distance > 15 and distance < 25:
+        if distance >= 18 and distance <= 22:
+        '''if distance >= 15 and distance <= 25:
             self.set_angle(20)
 
         elif distance > 25:
@@ -62,7 +60,7 @@ class Servo():
                 self.set_angle(angle)
         elif distance < 15:
             angle += 20
-            self.set_angle(angle)
+            self.set_angle(angle)'''
 
     def bloquerRoueToutDroit(self):
         self.set_angle(20)

@@ -10,8 +10,11 @@ class UltraSound:
         while True:
             print("Distance (",self.position,") :")
             print(self.sensor.distance * 100)
-            time.sleep(1)
+            time.sleep(0.1)
             return self.sensor.distance * 100
+
+    def infiniteDistance(self):
+        return self.sensor.distance * 100
 
 
 

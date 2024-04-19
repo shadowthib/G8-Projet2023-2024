@@ -17,7 +17,9 @@ class Main():
             match choix :
                 case "1":
                     servo.bloquerRoueToutDroit()
-                    motor.avancerReculer30cm()
+                    motor.forward(1000)
+                    time.sleep(2)
+                    motor.stop()
                     servo.stop()
                 case "2":
                     motor.test_condition()
@@ -44,17 +46,34 @@ class Main():
                     servo.stop()
                     break
                 case "7":
-                    while True:
-                        motor.avancer1M()
-                        UltraSound_left.get_distance()
-                        '''i = 0
-                        while 1:
-                            if i == 0:
-                                motor.avancer1M()
-                            else:
-                                pass
-                            i += 1
-                            servo.mur1m(UltraSound_left.get_distance())'''
+                    i = 0
+                    while i <= 60:
+                        motor.forward(round(4095*0.35))
+                        distance = UltraSound_left.infiniteDistance()
+                        servo.mur1m(distance)
+                        time.sleep(0.1)
+                        i += 1
+                    motor.stop()
+                    '''thread1 = threading.Thread(target=motor.avancer1M)
+                    thread2 = threading.Thread(target=UltraSound_left.infiniteDistance)
+                    distance = UltraSound_left.infiniteDistance()
+                    thread3 = threading.Thread(target=servo.mur1m, args=(distance,))
+
+                    thread1.start()
+                    thread2.start()
+                    thread3.start()
+
+                    thread1.join()
+                    thread2.join()
+                    thread3.join()'''
+                    '''i = 0
+                    while 1:
+                        if i == 0:
+                            motor.avancer1M()
+                        else:
+                            pass
+                        i += 1
+                        servo.mur1m(UltraSound_left.get_distance())'''
                 case _:
                     print('Choix non valide, réessayer.')
                     self.menuPrincipal()
