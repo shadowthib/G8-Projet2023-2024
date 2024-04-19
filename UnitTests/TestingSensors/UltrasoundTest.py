@@ -2,41 +2,36 @@ import unittest
 import RPi.GPIO as GPIO
 import time
 
-class UltraSoundTest(unittest.TestCase):
-    def test_something(self):
-        GPIO.setmode(GPIO.BCM)
+class UltrasoundTest(unittest.TestCase):
 
-        TRIG = 23 
-        ECHO = 21
-
-        print("Distance Measurement In Progress")
-
-        GPIO.setup(TRIG, GPIO.OUT)
-        GPIO.setup(ECHO, GPIO.IN)
-
-        GPIO.output(TRIG, False)
-        print("Waiting For Sensor To Settle")
-        time.sleep(2)
-
-        GPIO.output(TRIG, True)
+    def test_unit_sound (self):
+        self.assertEqual(TRIG,1, "Le capteur a été activé")
+        self.assertNotEqual(TRIG,1, "Le capteur n'a pas été activé")
         time.sleep(0.00001)
-        GPIO.output(TRIG, False)
+        self.assertEqual(ECHO,1, "Le capteur a pas activé")
+        self.assertNotEqual(ECHO,1, "Le capteur n'a pas été activé")
+        time.sleep(0.0011)
+        self.assertEqual(TRIG,0, "Le capteur est activé")
+        self.assertNotEqual(TRIG,0, "Le capteur est désactivé")
+        self.assertEqual(ECHO,0, "Le capteur est activé")
+        self.assertNotEqual(ECHO,0, "Le capteur est désactivé")
 
-        while GPIO.input(ECHO) == 0:
-            pulse_start = time.time()
+    def test_unit_distance(self):
+        self.assertTrue(0<=distance<=400, "La distance est dans de la plage de mesure")
+        self.assertFalse(0<=distance<=400, "La distance est hors de la plage de mesure")
 
-        while GPIO.input(ECHO) == 1:
-            pulse_end = time.time()
+    def test_unit_type(self):
+        self.assertIsInstance(distance,float, "La distance est un nombre flottant")
+        self.assertNotIsInstance(distance,float, "La distance n'est pas un nombre flottant")
 
-        pulse_duration = pulse_end - pulse_start
+    def test_unit_stop(self):
+        self.assertTrue(distance>5, "La distance est supérieure à 5 cm")
+        self.assertFalse(distance>5, "La distance est inférieure à 5 cm")
 
-        distance = pulse_duration * 17150
+    def test_unit_start(self):
+        self.assertTrue(distance<5, "La distance est inférieure à 5 cm")
+        self.assertFalse(distance<5, "La distance est supérieure à 5 cm")
 
-        distance = round(distance, 2)
-
-        print("Distance: ", distance, "cm")
-
-        GPIO.cleanup()
-
+    
 if __name__ == '__main__':
     unittest.main()
