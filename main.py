@@ -53,14 +53,12 @@ while 1:
     if choix == "1":
         servo.bloquerRoueToutDroit()
         motor.avancerReculer30cm()
-        servo.stop()
     elif choix == "2":
         motor.test_condition()
     elif choix == "3":
         servo.bloquerRoueToutDroit()
         motor.accelForward()
         motor.decelForward()
-        servo.stop()
     elif choix == "4":
         servo.test()
     elif choix == "5":
