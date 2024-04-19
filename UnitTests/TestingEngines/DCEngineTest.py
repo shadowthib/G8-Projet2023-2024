@@ -10,7 +10,7 @@ class DCEngineTest(unittest.TestCase):
         self.assertTrue(self.pins.active, "Les pins sdoivent être actives")
         self.assertFalse(self.pins.active, "Les pins ne sont pas désactives")
 
-    def unit_test_vitesse(self):
+    def unit_test_speed(self):
         self.seepd_select = lambda: 512
         self.motor_state(self.motor1_A, self.motor1_B, self.speed_select)
         self.motor_state(self.motor2_A, self.motor2_B, self.speed_select)
