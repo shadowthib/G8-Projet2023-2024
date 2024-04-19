@@ -26,9 +26,6 @@ class Servo():
         self.set_angle(20)
         self.stop()'''
 
-    def reset(self):
-        self.set_angle(45)
-
 
     def stop(self):
         self.pwm.write(0, 0, 0)
@@ -45,6 +42,7 @@ class Servo():
                 self.set_angle(angle)
                 time.sleep(2)
                 self.set_angle(0)
+                time.sleep(1)
                 self.stop()
 
 
@@ -52,33 +50,41 @@ class Servo():
         angle = 20
         if distance > 15 and distance < 25:
             self.set_angle(20)
+            time.sleep(1)
 
         elif distance > 25:
             if distance > 50:
                 angle += 20
                 self.set_angle(angle)
+                time.sleep(1)
             else:
                 angle -= 20
                 self.set_angle(angle)
+                time.sleep(1)
         elif distance < 15:
             angle += 20
             self.set_angle(angle)
+            time.sleep(1)
 
     def bloquerRoueToutDroit(self):
         self.set_angle(20)
-
+        time.sleep(2)
     def tour(self, distance):
         angle = 20
         if distance > 15 and distance < 25:
             self.set_angle(20)
+            time.sleep(1)
 
         elif distance > 25:
             if distance > 40:
                 angle -= 30
                 self.set_angle(angle)
+                time.sleep(1)
             else:
                 angle -= 20
                 self.set_angle(angle)
+                time.sleep(1)
         elif distance < 15:
             angle += 20
             self.set_angle(angle)
+            time.sleep(1)

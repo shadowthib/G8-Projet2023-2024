@@ -2,7 +2,7 @@ import random
 
 import RPi.GPIO as GPIO
 import time
-import Engines.PCA9685 as PCA
+import PCA9685 as PCA
 import pick
 
 
@@ -135,8 +135,8 @@ class DCEngine:
 
 
     def avancer1M(self):
-        self.forward(round(4095 * 0.70))
-        time.sleep(3)
+        self.forward(round(4095 * 0.35))
+        time.sleep(6)
         self.stop()
 
     def effectuerTour(self):
