@@ -39,7 +39,7 @@ class Main():
                     motor.stop()
                     motor.forward(2512)
                     servo.set_angle(-25)
-                    time.sleep(3.5)
+                    time.sleep(3)
                     motor.stop()
                     servo.set_angle(20)
                     time.sleep(2)
@@ -47,11 +47,13 @@ class Main():
                     break
                 case "7":
                     i = 0
-                    while i <= 60:
-                        motor.forward(round(4095*0.35))
+                    while i <= 120:
                         distance = UltraSound_left.infiniteDistance()
+                        distance_front = UltraSound_front.infiniteDistance()
                         servo.mur1m(distance)
-                        time.sleep(0.1)
+                        servo.mur1m(distance_front)
+                        motor.forward(round(4095*0.35))
+                        time.sleep(0.05)
                         i += 1
                     motor.stop()
                     '''thread1 = threading.Thread(target=motor.avancer1M)

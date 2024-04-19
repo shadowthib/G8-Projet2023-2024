@@ -45,9 +45,27 @@ class Servo():
                 self.set_angle(0)
                 self.stop()
 
-    def mur1m(self, distance):
+    def mur1m(self, distance=None, distance_front=None):
         angle = 20
-        if distance >= 18 and distance <= 22:
+        if distance != None:
+            if distance >= 18 and distance <= 22:
+                self.set_angle(angle)
+            elif distance > 22 :
+                if distance > 27:
+                    self.set_angle(-15)
+                else :
+                    self.set_angle(angle - (distance-angle))
+            elif distance < 18:
+                if distance < 10:
+                    if distance < 5:
+                        self.set_angle(65)
+                    else :
+                        self.set_angle(40)
+                else :
+                    self.set_angle(angle + (distance-angle))
+        elif distance_front != None:
+            if distance_front < 10:
+                self.set_angle(65)
         '''if distance >= 15 and distance <= 25:
             self.set_angle(20)
 
