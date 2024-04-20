@@ -3,6 +3,7 @@ import time
 import Engines.DCEngine as DCEngine
 import Sensors.Ultrasound as UltraSound
 import Engines.ServoEngine as ServoEngine
+import Sensors.Infrared as Infrared
 
 
 import abc
@@ -13,7 +14,7 @@ class Main():
 
     def menuPrincipal(self):
         while 1:
-            choix = input("1: avancer/reculer 30cm\n2: gerer vitesse\n3: accelerer/decélération\n4: tourner servo\n5: récup donner ultraso\n6: demi tour\n7: longer mur\nEntrez votre choix : ")
+            choix = input("1: avancer/reculer 30cm\n2: gerer vitesse\n3: accelerer/decélération\n4: tourner servo\n5: récup donner ultraso\n6: demi tour\n7: longer mur\n8: faire un tour\n9: faire un tour aérodynamique\n10: YIONI-MENU (PERFORMANCE MAX)\n11: YIONITEST\nEntrez votre choix : ")
             match choix :
                 case "1":
                     servo.bloquerRoueToutDroit()
@@ -51,31 +52,65 @@ class Main():
                         distance = UltraSound_left.infiniteDistance()
                         distance_front = UltraSound_front.infiniteDistance()
                         servo.mur1m(distance)
-                        servo.mur1m(distance_front)
+                        #servo.mur1m(distance_front)
                         motor.forward(round(4095*0.35))
                         time.sleep(0.05)
                         i += 1
                     motor.stop()
-                    '''thread1 = threading.Thread(target=motor.avancer1M)
-                    thread2 = threading.Thread(target=UltraSound_left.infiniteDistance)
-                    distance = UltraSound_left.infiniteDistance()
-                    thread3 = threading.Thread(target=servo.mur1m, args=(distance,))
+                case "8":
+                    nbrTour = input("Entrez le nombre de tour: ")
+                    while True :
+                        motor.forward(3000)
+                        distance = UltraSound_left.infiniteDistance()
+                        servo.mur1m(distance)
+                        time.sleep(0.1)
 
-                    thread1.start()
-                    thread2.start()
-                    thread3.start()
+                    motor.stop()
+                    servo.set_angle(20)
+                case "9":
+                    servo.set_angle(-10)
+                    time.sleep(2)
 
-                    thread1.join()
-                    thread2.join()
-                    thread3.join()'''
-                    '''i = 0
-                    while 1:
-                        if i == 0:
-                            motor.avancer1M()
-                        else:
-                            pass
-                        i += 1
-                        servo.mur1m(UltraSound_left.get_distance())'''
+                    while True :
+                        distance = UltraSound_left.infiniteDistance()
+                        motor.forward(3000)
+                        servo.collerMur(distance)
+                        time.sleep(0.1)
+
+                case "10":
+                    y_choix = input("[1] YIONIMAX (Final) ")
+
+                    match y_choix :
+                        case "1":
+
+                            infra = Infrared.InfraRed()
+                            loop_finished = infra.loop_finished
+
+                            threading.Thread(target=infra.loopCount).start()
+                            if not loop_finished:
+                                print(loop_finished)
+                                '''distance_left = UltraSound_left.infiniteDistance()
+                                distance_right = UltraSound_right.infiniteDistance()
+                                distance_front = UltraSound_front.infiniteDistance()
+
+                                threading.Thread(target=motor.smartMove, args=(distance_front,)).start()
+                                threading.Thread(target=servo.smartFollowWall, args=(distance_left,)).start()
+                                threading.Thread(target=servo.smartTurn, args=(distance_front,distance_left,distance_right,)).start()'''
+                            else:
+                                '''motor.stop()
+                                servo.stop()'''
+
+                            print(f"{threading.active_count()} Actifs !")
+                            print(f"{threading.current_thread()}")
+
+
+                            '''motor.smartMove(distance_front)
+                            servo.smartFollowWall(distance_left)
+                            servo.smartTurn(distance_front,distance_left,distance_right)'''
+                case "11":
+                    infra = Infrared.InfraRed()
+                    #loop_finished = Infrared.InfraRed().loop_finished
+                    threading.Thread(target=infra.loopCount).start()
                 case _:
                     print('Choix non valide, réessayer.')
                     self.menuPrincipal()

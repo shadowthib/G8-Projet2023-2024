@@ -14,7 +14,7 @@ class UltraSound:
             return self.sensor.distance * 100
 
     def infiniteDistance(self):
-        return self.sensor.distance * 100
+        return round(self.sensor.distance * 100)
 
 
 

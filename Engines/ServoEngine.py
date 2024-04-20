@@ -66,6 +66,13 @@ class Servo():
         elif distance_front != None:
             if distance_front < 10:
                 self.set_angle(65)
+
+
+    def collerMur(self, distance):
+        if distance > 10 :
+            self.set_angle(-25)
+        else:
+            self.set_angle(20)
         '''if distance >= 15 and distance <= 25:
             self.set_angle(20)
 
@@ -98,3 +105,29 @@ class Servo():
         elif distance < 15:
             angle += 20
             self.set_angle(angle)
+
+
+    def smartFollowWall(self, distance_left):
+        angle = 20
+        while distance_left == 20 :
+            self.set_angle(angle)
+        while distance_left  > 20 :
+            if distance_left  > 30:
+                self.set_angle(-25)
+            else :
+                self.set_angle(angle - (distance_left -angle))
+        while distance_left  < 20:
+            if distance_left  < 10:
+                self.set_angle(40)
+            else :
+                self.set_angle(angle + (distance_left -angle))
+
+    def smartTurn(self, distance_front, distance_left, distance_right):
+        if distance_front < 10:
+            if distance_left < distance_right:
+                self.set_angle(65)
+                time.sleep(1)
+            elif distance_right < distance_left:
+                self.set_angle(-25)
+                time.sleep(1)
+

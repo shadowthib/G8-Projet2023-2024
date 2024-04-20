@@ -87,11 +87,6 @@ class DCEngine:
                 break
             time.sleep(0.1)
 
-        '''motor.backward(speed_select)
-    
-        time.sleep(2)'''
-
-
     def test_avance(self):
         speed_select = 4095
 
@@ -145,3 +140,12 @@ class DCEngine:
         while True :
             self.avancer1M()
 
+    def smartMove(self, distance_front):
+        while distance_front >= 15:
+            self.forward(4095)
+        while distance_front < 15:
+            if distance_front > 1:
+                self.forward(3000 * (distance_front / 15))
+            else:
+                self.backward(4095)
+                time.sleep(1)

@@ -1,25 +1,31 @@
-from Sensor import Sensor
+import time
 
-class InfraRed(Sensor):
-    def __init__(self, bus_number):
-        super().__init__(self)
-        self.bus_number
-        self.adress = 0x48
+from RPi import GPIO
 
-    def get_bus_number(self):
-        return self.bus_number
+class InfraRed():
+    def __init__(self):
+        self.pin = 20
+        self.loop_finished = False
+        self.loop_track = -1
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.pin, GPIO.IN)
 
-    def get_adress(self):
-        return self.adress
+    def lineDetect(self):
+        return GPIO.input(self.pin)
 
-    def set_adress(self, adress):
-        self.adress = adress
-        self.notify()
-
-    def set_bus_number(self, bus_number):
-        self.bus_number = bus_number
-        self.notify()
-
-    def update(self):
-        print(self.bus_number, self.adress, "updated")
-        self.notify()
+    def loopCount(self):
+        self.loop_finished = False
+        loop_count = abs(int(input("Nombre de tour(s) à effectuer : ")))
+        while not self.loop_finished:
+            print("Détection ligne en cours...")
+            if self.loop_track < loop_count:
+                self.lineDetect()
+                time.sleep(0.5)
+                if self.lineDetect() == GPIO.HIGH:
+                    print("Ligne détecté !")
+                    self.loop_track += 1
+                    time.sleep(5)
+            elif self.loop_track >= loop_count:
+                print("Tours terminés !")
+                self.loop_finished = True
+                return self.loop_finished
