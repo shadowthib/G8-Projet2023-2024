@@ -82,22 +82,40 @@ class Main():
 
                     match y_choix :
                         case "1":
-
                             infra = Infrared.InfraRed()
-                            loop_finished = infra.loop_finished
-
                             threading.Thread(target=infra.loopCount).start()
-                            if not loop_finished:
-                                print(loop_finished)
-                                '''distance_left = UltraSound_left.infiniteDistance()
+
+                            while not infra.loop_finished:
+                                print("Moteur en marche")
+                                distance_front = UltraSound_front.infiniteDistance()
+                                distance_right = UltraSound_right.infiniteDistance()
+                                distance_left = UltraSound_left.infiniteDistance()
+
+                                threading.Thread(target=motor.Y_smartMove, args=(distance_front,distance_left,distance_right,)).start()
+                                threading.Thread(target=servo.Y_smartFollowWall, args=(distance_left,distance_front,)).start()
+                                threading.Thread(target=servo.smartTurn,
+                                                 args=(distance_front, distance_left, distance_right,)).start()
+                            motor.stop()
+                            servo.stop()
+                            print("C'est fini !")
+                            '''while not infra.loop_finished:
+                                print("pas fini")
+                                distance_left = UltraSound_left.infiniteDistance()
                                 distance_right = UltraSound_right.infiniteDistance()
                                 distance_front = UltraSound_front.infiniteDistance()
 
-                                threading.Thread(target=motor.smartMove, args=(distance_front,)).start()
-                                threading.Thread(target=servo.smartFollowWall, args=(distance_left,)).start()
-                                threading.Thread(target=servo.smartTurn, args=(distance_front,distance_left,distance_right,)).start()'''
+                                threading.Thread(target=distance_left).start()
+                                threading.Thread(target=distance_right).start()
+                                threading.Thread(target=distance_front).start()
+
+
+                                threading.Thread(target=motor.Y_smartMove, args=(distance_front,)).start()
+                                threading.Thread(target=servo.Y_smartFollowWall, args=(distance_left,)).start()
+                                #threading.Thread(target=servo.smartTurn, args=(distance_front,distance_left,distance_right,)).start()
+
+
                             else:
-                                '''motor.stop()
+                                motor.stop()
                                 servo.stop()'''
 
                             print(f"{threading.active_count()} Actifs !")

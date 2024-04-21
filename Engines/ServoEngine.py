@@ -123,11 +123,41 @@ class Servo():
                 self.set_angle(angle + (distance_left -angle))
 
     def smartTurn(self, distance_front, distance_left, distance_right):
-        if distance_front < 10:
+        if distance_front < 20:
             if distance_left < distance_right:
+                self.stop()
+                time.sleep(0.2)
                 self.set_angle(65)
                 time.sleep(1)
             elif distance_right < distance_left:
+                self.stop()
+                time.sleep(0.2)
                 self.set_angle(-25)
                 time.sleep(1)
 
+    def Y_smartFollowWall(self, distance_left, distance_front):
+        angle = 20
+        if distance_left == 20:
+            self.set_angle(angle)
+            time.sleep(0.1)
+        elif distance_left > 20:
+            if distance_left > 40:
+                if distance_front > 20:
+                    self.set_angle(-10)
+                    time.sleep(0.1)
+                else:
+                    self.set_angle(65)
+                    time.sleep(0.1)
+            if distance_left <= 40:
+                self.set_angle(angle - (distance_left - angle))
+                time.sleep(0.1)
+        elif distance_left < 20:
+            if distance_left < 10:
+                self.set_angle(55)
+                time.sleep(0.1)
+            else:
+                self.set_angle(angle + (distance_left - angle))
+                time.sleep(0.1)
+        elif distance_front >= 90 and distance_left >= 90:
+            self.set_angle(-25)
+            time.sleep(1)

@@ -142,10 +142,26 @@ class DCEngine:
 
     def smartMove(self, distance_front):
         while distance_front >= 15:
-            self.forward(4095)
+            self.forward(2000)
         while distance_front < 15:
             if distance_front > 1:
-                self.forward(3000 * (distance_front / 15))
+                self.forward(2000 * (distance_front / 15))
             else:
+                self.backward(2000)
+                time.sleep(1)
+
+    def Y_smartMove(self, distance_front, distance_left, distance_right):
+        if distance_front >= 20:
+            self.forward(1500)
+        elif distance_front < 20:
+            if distance_front >= 10:
+                self.forward(round(1500 * (distance_front / 15)))
+            if distance_front < 10:
                 self.backward(4095)
                 time.sleep(1)
+                if distance_front > 90:
+                    self.backward(4095)
+                    time.sleep(1)
+        elif distance_front >= 90 and distance_left >= 90 and distance_right >= 90:
+            self.backward(4095)
+            time.sleep(2)

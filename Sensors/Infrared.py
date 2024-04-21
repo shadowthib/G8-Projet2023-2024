@@ -24,8 +24,9 @@ class InfraRed():
                 if self.lineDetect() == GPIO.HIGH:
                     print("Ligne détecté !")
                     self.loop_track += 1
-                    time.sleep(5)
+                    time.sleep(2)
             elif self.loop_track >= loop_count:
                 print("Tours terminés !")
                 self.loop_finished = True
                 return self.loop_finished
+                break
